@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 var hbs = require('express-handlebars')
 
 var userRoutes = require('./routes/users')
+var activityRoutes = require('./routes/activities')
 
 var server = express()
 
@@ -20,3 +21,4 @@ server.use(bodyParser.json())
 // Routes
 
 server.use('/users', userRoutes)
+server.use('/activities', activityRoutes)
