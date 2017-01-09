@@ -29,15 +29,34 @@ test('getUsers gets all users', function (t) {
   return db.getUsers(t.context.db)
     .then(function (result) {
       var actual = result.length
-      t.is(expected, actual)
+      t.is(actual, expected)
     })
 })
 
-test('getUsers gets a single user', function (t) {
+test('getUser gets a single user', function (t) {
   var expected = 'Ambitious Aardvark'
   return db.getUser(99901, t.context.db)
     .then(function (result) {
       var actual = result[0].name
-      t.is(expected, actual)
+      t.is(actual, expected)
     })
 })
+
+test.cb('postUser adds a new user', function (t){
+  var testUser = {
+    id: 99927,
+    name: "sausage",
+    email: "wiener@sausage.com"
+  }
+  db.postUser(testUser, t.context.db)
+   .then(function(newUserIds) {
+     var actual = newUserIds[0]
+     var expected = testUser.id
+     t.is(actual, expected)
+     t.end()
+   })
+   .catch(function (err) {
+     t.ifError(err)
+     t.end()
+   })
+ })
